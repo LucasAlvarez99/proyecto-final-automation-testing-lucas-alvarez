@@ -1,22 +1,22 @@
 from selenium.webdriver.common.by import By
-from utils.helpers import esperar_elemento_visible, esperar_clickable
+from pages.base_page import BasePage
 
-class LoginPage:
+class LoginPage(BasePage):
+
     URL = "https://www.saucedemo.com/"
 
-    def __init__(self, driver):
-        self.driver = driver
+    USERNAME = (By.ID, "user-name")
+    PASSWORD = (By.ID, "password")
+    LOGIN_BTN = (By.ID, "login-button")
+    ERROR_MSG = (By.CSS_SELECTOR, "h3[data-test='error']")
 
-    def load(self):
+    def open(self):
         self.driver.get(self.URL)
 
     def login(self, username, password):
-        esperar_elemento_visible(self.driver, By.ID, "user-name").clear()
-        self.driver.find_element(By.ID, "user-name").send_keys(username)
-        esperar_elemento_visible(self.driver, By.ID, "password").clear()
-        self.driver.find_element(By.ID, "password").send_keys(password)
-        esperar_clickable(self.driver, By.ID, "login-button").click()
+        self.send_keys(self.USERNAME, username)
+        self.send_keys(self.PASSWORD, password)
+        self.click(self.LOGIN_BTN)
 
     def get_error(self):
-        el = esperar_elemento_visible(self.driver, By.XPATH, "//h3[@data-test='error']", timeout=5)
-        return el.text
+        return self.get_text(self.ERROR_MSG)

@@ -1,51 +1,41 @@
-import os
-import time
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from utils.helpers import tomar_captura, ensure_dir
+from utils.helpers import tomar_captura
+import os
+import csv
 
-# Carpeta para screenshots y reports
-ensure_dir("screenshots")
-ensure_dir("reports")
+@pytest.fixture(scope="session")
+def load_users():
+    """Carga usuarios desde CSV para parametrización."""
+    users = []
+    csv_path = os.path.join("data", "users.csv")
+    with open(csv_path, newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            users.append(row)
+    return users
 
-def _create_chrome_options(headless=False):
-    options = Options()
-    options.add_argument("--start-maximized")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    if headless:
-        options.add_argument("--headless=new")
-    return options
-
-@pytest.fixture(scope="function")
+@pytest.fixture
 def driver(request):
-    """
-    Fixture que crea el WebDriver.
-    - Por defecto usa webdriver-manager (auto descarga).
-    - Si querés usar un chromedriver local, setear la variable de entorno CHROME_DRIVER_PATH.
-    """
-    headless = os.getenv("HEADLESS", "false").lower() == "true"
-    chrome_path = os.getenv("CHROME_DRIVER_PATH", "")
+    """Inicializa y cierra el WebDriver automáticamente."""
+    options = webdriver.ChromeOptions()
+    options.add_argument("--start-maximized")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-    options = _create_chrome_options(headless=headless)
-
-    if chrome_path:
-        service = Service(chrome_path)
-    else:
-        service = Service(ChromeDriverManager().install())
-
-    driver = webdriver.Chrome(service=service, options=options)
-    request.node._driver = driver
     yield driver
 
-    # Nombre de captura (si fue seteado por el test)
-    nombre_captura = getattr(request.node, "nombre_captura", None)
-    if not nombre_captura:
-        nombre_captura = f"{request.node.name}_finalizado"
-    path = tomar_captura(driver, nombre_captura)
-    print(f"Screenshot guardado: {path}")
+    # Si la prueba falló → tomar screenshot automáticamente
+    if request.node.rep_call.failed:
+        nombre_test = request.node.name
+        tomar_captura(driver, nombre_test)
 
     driver.quit()
+
+def pytest_runtest_makereport(item, call):
+    """Hook necesario para saber si un test falló."""
+    if "driver" in item.fixturenames:
+        outcome = yield
+        rep = outcome.get_result()
+        setattr(item, "rep_" + rep.when, rep)

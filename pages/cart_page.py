@@ -1,21 +1,13 @@
 from selenium.webdriver.common.by import By
-from utils.helpers import esperar_elemento_visible, esperar_clickable
+from pages.base_page import BasePage
 
-class CartPage:
-    def __init__(self, driver):
-        self.driver = driver
+class CartPage(BasePage):
 
-    def items(self):
-        return self.driver.find_elements(By.CLASS_NAME, "cart_item")
+    TITLE = (By.CSS_SELECTOR, ".title")
+    CHECKOUT_BTN = (By.ID, "checkout")
 
-    def remover_primer_producto(self):
-        btns = self.driver.find_elements(By.CLASS_NAME, "cart_button")
-        if btns:
-            btns[0].click()
+    def is_page_loaded(self):
+        return self.is_visible(self.TITLE)
 
-    def contador_carrito(self):
-        try:
-            el = esperar_elemento_visible(self.driver, By.CLASS_NAME, "shopping_cart_badge", timeout=5)
-            return int(el.text)
-        except:
-            return 0
+    def checkout(self):
+        self.click(self.CHECKOUT_BTN)

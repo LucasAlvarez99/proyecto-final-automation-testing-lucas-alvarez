@@ -1,12 +1,21 @@
 import logging
 import os
+from datetime import datetime
 
 def get_logger(name="automation"):
-    logger = logging.getLogger(name)
-    if not logger.handlers:
-        logger.setLevel(logging.INFO)
-        handler = logging.FileHandler("reports/automation.log")
-        formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-        handler.setFormatter(formatter)
-        logger.addHandler(handler)
-    return logger
+    logs_folder = "logs"
+    if not os.path.exists(logs_folder):
+        os.makedirs(logs_folder)
+
+    log_file = os.path.join(logs_folder, f"{datetime.now().strftime('%Y-%m-%d')}.log")
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        handlers=[
+            logging.FileHandler(log_file, encoding="utf-8"),
+            logging.StreamHandler()
+        ]
+    )
+
+    return logging.getLogger(name)
