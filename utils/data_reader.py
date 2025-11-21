@@ -1,7 +1,6 @@
 import csv
 import json
 from pathlib import Path
-import os
 
 def read_csv(file_path):
     with open(file_path, newline='', encoding='utf-8') as f:
