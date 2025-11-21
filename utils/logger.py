@@ -2,20 +2,26 @@ import logging
 import os
 from datetime import datetime
 
-def get_logger(name="automation"):
-    logs_folder = "logs"
-    if not os.path.exists(logs_folder):
-        os.makedirs(logs_folder)
+def get_logger(test_name):
+    """
+    Crea un logger individual por cada test,
+    guardado dentro de /logs/ con fecha/hora.
+    """
 
-    log_file = os.path.join(logs_folder, f"{datetime.now().strftime('%Y-%m-%d')}.log")
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    log_dir = os.path.join(base_path, "logs")
+    os.makedirs(log_dir, exist_ok=True)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s",
-        handlers=[
-            logging.FileHandler(log_file, encoding="utf-8"),
-            logging.StreamHandler()
-        ]
+    log_file = os.path.join(
+        log_dir,
+        f"{test_name}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
     )
 
-    return logging.getLogger(name)
+    logger = logging.getLogger(test_name)
+    logger.setLevel(logging.INFO)
+
+    fh = logging.FileHandler(log_file, mode="w")
+    fh.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+    logger.addHandler(fh)
+
+    return logger

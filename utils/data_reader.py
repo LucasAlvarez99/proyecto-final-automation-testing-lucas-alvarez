@@ -1,12 +1,17 @@
 import csv
 import os
 
-def read_csv(file_name):
-    """Lee un archivo CSV y retorna una lista de diccionarios."""
-    path = os.path.join("data", file_name)
+def load_csv_data(file_name):
+    """
+    Lee un archivo CSV desde la carpeta /datos/ y devuelve una lista de diccionarios.
+    """
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    file_path = os.path.join(base_path, "datos", file_name)
+
     data = []
-    with open(path, encoding="utf-8") as f:
-        reader = csv.DictReader(f)
+    with open(file_path, mode="r", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
         for row in reader:
             data.append(row)
+
     return data
