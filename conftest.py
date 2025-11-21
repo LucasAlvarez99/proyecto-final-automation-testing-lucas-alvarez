@@ -1,4 +1,5 @@
 import pytest
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -70,6 +71,10 @@ def browser(request):
         driver.quit()
     except Exception as e:
         logger.warning(f"Error al cerrar navegador: {e}")
+    
+    # Pausa para evitar conflictos entre instancias de Chrome en Windows
+    time.sleep(1)
+    
     logger.info("=== Fin de prueba: %s ===" % request.node.name)
 
 
