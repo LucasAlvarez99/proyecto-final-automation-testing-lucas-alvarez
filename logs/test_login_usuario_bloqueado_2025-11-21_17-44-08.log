@@ -1,0 +1,6 @@
+2025-11-21 17:44:08,196 - INFO - === Iniciando prueba: test_login_usuario_bloqueado ===
+2025-11-21 17:44:08,197 - INFO - Configurando navegador Chrome...
+2025-11-21 17:44:14,058 - INFO - Navegador iniciado correctamente
+2025-11-21 17:44:15,771 - INFO - [PASSED] Prueba completada
+2025-11-21 17:44:15,772 - INFO - Cerrando navegador...
+2025-11-21 17:44:19,054 - INFO - === Fin de prueba: test_login_usuario_bloqueado ===
