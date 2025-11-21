@@ -3,6 +3,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import os
+import pytest_html
 from utils.logger import get_logger
 
 

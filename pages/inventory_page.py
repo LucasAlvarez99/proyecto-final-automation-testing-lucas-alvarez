@@ -3,15 +3,15 @@ from pages.base_page import BasePage
 
 class InventoryPage(BasePage):
 
-    TITLE = (By.CSS_SELECTOR, ".title")
-    ADD_TO_CART_BTN = (By.XPATH, "//button[contains(text(), 'Add to cart')]")
-    CART_ICON = (By.ID, "shopping_cart_container")
+    TITLE = (By.CLASS_NAME, "title")
+    ADD_BACKPACK = (By.ID, "add-to-cart-sauce-labs-backpack")
+    CART_BUTTON = (By.CLASS_NAME, "shopping_cart_link")
 
-    def is_page_loaded(self):
-        return self.is_visible(self.TITLE)
+    def obtener_titulo(self):
+        return self.obtener_texto(self.TITLE)
 
-    def add_first_product_to_cart(self):
-        self.click(self.ADD_TO_CART_BTN)
+    def agregar_producto_backpack(self):
+        self.click(self.ADD_BACKPACK)
 
-    def go_to_cart(self):
-        self.click(self.CART_ICON)
+    def ir_al_carrito(self):
+        self.click(self.CART_BUTTON)

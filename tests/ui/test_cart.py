@@ -2,15 +2,15 @@ from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 
-def test_agregar_producto_al_carrito(driver):
-    login = LoginPage(driver)
-    inventory = InventoryPage(driver)
-    cart = CartPage(driver)
-
-    login.open()
+def test_agregar_producto_al_carrito(browser):
+    login = LoginPage(browser)
+    login.abrir()
     login.login("standard_user", "secret_sauce")
 
-    inventory.add_first_product_to_cart()
-    inventory.go_to_cart()
+    inventario = InventoryPage(browser)
+    inventario.agregar_producto_backpack()
+    inventario.ir_al_carrito()
 
-    assert cart.is_page_loaded(), "❌ No se cargó el carrito correctamente"
+    carrito = CartPage(browser)
+
+    assert carrito.obtener_titulo() == "Your Cart"

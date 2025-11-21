@@ -1,17 +1,25 @@
 import csv
+import json
+from pathlib import Path
 import os
 
-def load_csv_data(file_name):
-    """
-    Lee un archivo CSV desde la carpeta /datos/ y devuelve una lista de diccionarios.
-    """
-    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    file_path = os.path.join(base_path, "datos", file_name)
+def read_csv(file_path):
+    with open(file_path, newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        return list(reader)
 
-    data = []
-    with open(file_path, mode="r", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            data.append(row)
+def read_json(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-    return data
+def leer_csv(nombre_archivo):
+    # Ubicación real del proyecto (1 nivel arriba de utils/)
+    base_dir = Path(__file__).resolve().parent.parent
+    ruta = base_dir / "datos" / nombre_archivo
+
+    if not ruta.exists():
+        raise FileNotFoundError(f"Archivo no encontrado: {ruta}")
+
+    with open(ruta, newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        return list(reader)

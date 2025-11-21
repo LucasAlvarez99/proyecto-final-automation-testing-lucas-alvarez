@@ -5,25 +5,25 @@ from pages.checkout_step_one_page import CheckoutStepOnePage
 from pages.checkout_step_two_page import CheckoutStepTwoPage
 from pages.checkout_complete_page import CheckoutCompletePage
 
-def test_checkout_completo(driver):
-    login = LoginPage(driver)
-    inventario = InventoryPage(driver)
-    carrito = CartPage(driver)
-    paso1 = CheckoutStepOnePage(driver)
-    paso2 = CheckoutStepTwoPage(driver)
-    final = CheckoutCompletePage(driver)
-
-    login.open()
+def test_checkout_completo(browser):
+    login = LoginPage(browser)
+    login.abrir()
     login.login("standard_user", "secret_sauce")
 
-    inventario.add_first_product_to_cart()
-    inventario.go_to_cart()
+    inventario = InventoryPage(browser)
+    inventario.agregar_producto_backpack()
+    inventario.ir_al_carrito()
 
-    carrito.checkout()
+    carrito = CartPage(browser)
+    carrito.ir_a_checkout()
 
-    paso1.fill_form("Lucas", "Alvarez", "1000")
-    paso1.continue_to_step_two()
+    paso1 = CheckoutStepOnePage(browser)
+    paso1.completar_formulario("Lucas", "Alvarez", "1234")
+    paso1.continuar()
 
-    paso2.finish_purchase()
+    paso2 = CheckoutStepTwoPage(browser)
+    paso2.finalizar()
 
-    assert final.is_order_complete(), "❌ No se completó la orden"
+    final = CheckoutCompletePage(browser)
+
+    assert final.obtener_mensaje_final() == "Checkout: Complete!"

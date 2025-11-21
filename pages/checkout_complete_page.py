@@ -3,10 +3,7 @@ from pages.base_page import BasePage
 
 class CheckoutCompletePage(BasePage):
 
-    COMPLETE_HEADER = (By.CSS_SELECTOR, ".complete-header")
+    TITLE = (By.CLASS_NAME, "title")
 
-    def success_message(self):
-        return self.get_text(self.COMPLETE_HEADER)
-
-    def is_order_complete(self):
-        return self.is_visible(self.COMPLETE_HEADER)
+    def obtener_mensaje_final(self):
+        return self.obtener_texto(self.TITLE)

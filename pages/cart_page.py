@@ -3,11 +3,11 @@ from pages.base_page import BasePage
 
 class CartPage(BasePage):
 
-    TITLE = (By.CSS_SELECTOR, ".title")
-    CHECKOUT_BTN = (By.ID, "checkout")
+    TITLE = (By.CLASS_NAME, "title")
+    CHECKOUT_BUTTON = (By.ID, "checkout")
 
-    def is_page_loaded(self):
-        return self.is_visible(self.TITLE)
+    def obtener_titulo(self):
+        return self.obtener_texto(self.TITLE)
 
-    def checkout(self):
-        self.click(self.CHECKOUT_BTN)
+    def ir_a_checkout(self):
+        self.click(self.CHECKOUT_BUTTON)

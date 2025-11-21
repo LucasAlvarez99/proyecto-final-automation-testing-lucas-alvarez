@@ -3,20 +3,18 @@ from pages.base_page import BasePage
 
 class LoginPage(BasePage):
 
-    URL = "https://www.saucedemo.com/"
+    USERNAME_INPUT = (By.ID, "user-name")
+    PASSWORD_INPUT = (By.ID, "password")
+    LOGIN_BUTTON = (By.ID, "login-button")
+    ERROR_MSG = (By.XPATH, "//h3[@data-test='error']")
 
-    USERNAME = (By.ID, "user-name")
-    PASSWORD = (By.ID, "password")
-    LOGIN_BTN = (By.ID, "login-button")
-    ERROR_MSG = (By.CSS_SELECTOR, "h3[data-test='error']")
-
-    def open(self):
-        self.driver.get(self.URL)
+    def abrir(self):
+        self.navegar("https://www.saucedemo.com/")
 
     def login(self, username, password):
-        self.send_keys(self.USERNAME, username)
-        self.send_keys(self.PASSWORD, password)
-        self.click(self.LOGIN_BTN)
+        self.escribir(self.USERNAME_INPUT, username)
+        self.escribir(self.PASSWORD_INPUT, password)
+        self.click(self.LOGIN_BUTTON)
 
-    def get_error(self):
-        return self.get_text(self.ERROR_MSG)
+    def obtener_mensaje_error(self):
+        return self.obtener_texto(self.ERROR_MSG)

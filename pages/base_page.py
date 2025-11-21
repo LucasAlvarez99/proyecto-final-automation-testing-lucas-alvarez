@@ -5,22 +5,22 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
 
-    def click(self, locator):
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+    def navegar(self, url):
+        self.driver.get(url)
 
-    def send_keys(self, locator, text):
-        element = self.wait.until(EC.visibility_of_element_located(locator))
-        element.clear()
-        element.send_keys(text)
+    def encontrar(self, locator, timeout=10):
+        return WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(locator)
+        )
 
-    def get_text(self, locator):
-        return self.wait.until(EC.visibility_of_element_located(locator)).text
+    def click(self, locator, timeout=10):
+        self.encontrar(locator, timeout).click()
 
-    def is_visible(self, locator):
-        try:
-            self.wait.until(EC.visibility_of_element_located(locator))
-            return True
-        except:
-            return False
+    def escribir(self, locator, texto, timeout=10):
+        campo = self.encontrar(locator, timeout)
+        campo.clear()
+        campo.send_keys(texto)
+
+    def obtener_texto(self, locator, timeout=10):
+        return self.encontrar(locator, timeout).text

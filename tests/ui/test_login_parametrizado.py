@@ -1,21 +1,20 @@
 import pytest
-from utils.data_reader import load_csv_data
 from pages.login_page import LoginPage
+from utils.data_reader import leer_csv
 
-# Cargar CSV completo
-users = load_csv_data("user.csv")
+datos = leer_csv("user.csv")
 
-@pytest.mark.parametrize("user", users)
-def test_login_parametrizado(browser, user):
-    login_page = LoginPage(browser)
-    login_page.open()
+@pytest.mark.parametrize("fila", datos)
+def test_login_parametrizado(browser, fila):
 
-    username = user["username"]
-    password = user["password"]
+    login = LoginPage(browser)
+    login.abrir()
 
-    login_page.login(username, password)
+    login.login(fila["username"], fila["password"])
 
-    if username == "standard_user" and password == "secret_sauce":
-        assert login_page.is_login_successful()
+    if fila["resultado"] == "ok":
+        # login exitoso → inventario
+        assert "inventory" in browser.current_url
     else:
-        assert login_page.is_error_message_displayed()
+        # login fallido
+        assert "Epic sadface" in login.obtener_mensaje_error()

@@ -1,0 +1,5 @@
+username,password,resultado
+standard_user,secret_sauce,ok
+locked_out_user,secret_sauce,error
+problem_user,secret_sauce,ok
+fake_user,123,error

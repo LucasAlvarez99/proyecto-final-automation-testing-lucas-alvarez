@@ -5,13 +5,13 @@ class CheckoutStepOnePage(BasePage):
 
     FIRST_NAME = (By.ID, "first-name")
     LAST_NAME = (By.ID, "last-name")
-    ZIP = (By.ID, "postal-code")
-    CONTINUE_BTN = (By.ID, "continue")
+    POSTAL_CODE = (By.ID, "postal-code")
+    CONTINUE_BUTTON = (By.ID, "continue")
 
-    def fill_form(self, first, last, zip_code):
-        self.send_keys(self.FIRST_NAME, first)
-        self.send_keys(self.LAST_NAME, last)
-        self.send_keys(self.ZIP, zip_code)
+    def completar_formulario(self, nombre, apellido, codigo):
+        self.escribir(self.FIRST_NAME, nombre)
+        self.escribir(self.LAST_NAME, apellido)
+        self.escribir(self.POSTAL_CODE, codigo)
 
-    def continue_to_step_two(self):
-        self.click(self.CONTINUE_BTN)
+    def continuar(self):
+        self.click(self.CONTINUE_BUTTON)
