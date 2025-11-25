@@ -1,6 +1,0 @@
-2025-11-21 17:44:50,373 - INFO - === Iniciando prueba: test_login_parametrizado[fila3] ===
-2025-11-21 17:44:50,374 - INFO - Configurando navegador Chrome...
-2025-11-21 17:44:56,360 - INFO - Navegador iniciado correctamente
-2025-11-21 17:44:57,973 - INFO - [PASSED] Prueba completada
-2025-11-21 17:44:57,973 - INFO - Cerrando navegador...
-2025-11-21 17:45:01,289 - INFO - === Fin de prueba: test_login_parametrizado[fila3] ===

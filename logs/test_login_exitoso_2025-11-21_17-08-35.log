@@ -1,6 +1,0 @@
-2025-11-21 17:08:35,164 - INFO - === Iniciando prueba: test_login_exitoso ===
-2025-11-21 17:08:35,165 - INFO - Configurando navegador Chrome...
-2025-11-21 17:08:41,268 - INFO - Navegador iniciado correctamente
-2025-11-21 17:08:42,751 - INFO - [PASSED] Prueba completada
-2025-11-21 17:08:42,752 - INFO - Cerrando navegador...
-2025-11-21 17:08:45,413 - INFO - === Fin de prueba: test_login_exitoso ===

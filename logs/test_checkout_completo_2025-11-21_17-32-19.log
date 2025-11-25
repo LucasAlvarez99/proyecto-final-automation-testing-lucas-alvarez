@@ -1,6 +1,0 @@
-2025-11-21 17:32:19,508 - INFO - === Iniciando prueba: test_checkout_completo ===
-2025-11-21 17:32:19,509 - INFO - Configurando navegador Chrome...
-2025-11-21 17:32:25,379 - INFO - Navegador iniciado correctamente
-2025-11-21 17:32:28,837 - INFO - [PASSED] Prueba completada
-2025-11-21 17:32:28,838 - INFO - Cerrando navegador...
-2025-11-21 17:32:31,174 - INFO - === Fin de prueba: test_checkout_completo ===

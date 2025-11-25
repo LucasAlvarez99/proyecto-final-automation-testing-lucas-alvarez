@@ -1,6 +1,0 @@
-2025-11-21 17:07:20,875 - INFO - === Iniciando prueba: test_agregar_producto_al_carrito ===
-2025-11-21 17:07:20,875 - INFO - Configurando navegador Chrome...
-2025-11-21 17:07:29,067 - INFO - Navegador iniciado correctamente
-2025-11-21 17:07:31,077 - INFO - [PASSED] Prueba completada
-2025-11-21 17:07:31,077 - INFO - Cerrando navegador...
-2025-11-21 17:07:33,438 - INFO - === Fin de prueba: test_agregar_producto_al_carrito ===
