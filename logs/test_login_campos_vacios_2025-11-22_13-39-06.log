@@ -1,0 +1,6 @@
+2025-11-22 13:39:06,980 - INFO - === Iniciando prueba: test_login_campos_vacios ===
+2025-11-22 13:39:06,980 - INFO - Configurando navegador Chrome...
+2025-11-22 13:39:14,416 - INFO - Navegador iniciado correctamente
+2025-11-22 13:39:15,746 - INFO - [PASSED] Prueba completada
+2025-11-22 13:39:15,746 - INFO - Cerrando navegador...
+2025-11-22 13:39:19,033 - INFO - === Fin de prueba: test_login_campos_vacios ===
